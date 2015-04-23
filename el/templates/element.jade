@@ -1,7 +1,7 @@
-link(rel="import", href="../../../bower_components/polymer/polymer.html")
-<% if (components) { components.forEach(function (componentName) { %>link(rel="import", href="../../../bower_components/<%= componentName %>/<%= componentName %>.html")
+link(rel='import', href='../../../bower_components/polymer/polymer.html')
+<% if (components) { components.forEach(function (componentName) { %>link(rel='import', href='../../../bower_components/<%= componentName %>/<%= componentName %>.html')
 <% });} %>
-polymer-element(name="<%= elementName %>" attributes="")
+polymer-element(name='<%= elementName %>', attributes='')
   template<% if (!externalStyle) { %>
     style.
       :host {
@@ -9,7 +9,7 @@ polymer-element(name="<%= elementName %>" attributes="")
       }
     <% } else { %>
     
-    link(rel="stylesheet", href="<%= elementName %>.css")<% } %>
+    link(rel='stylesheet', href='<%= elementName %>.css')<% } %>
     
     script.
       (function () {

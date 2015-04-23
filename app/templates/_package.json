@@ -1,7 +1,9 @@
 {
   "name": "<%= _.slugify(appname) %>",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {<% if (includeJade) { %>
+    "jade": "^1.9.2"<% } %>
+    },
   "devDependencies": {
     "web-component-tester": "^2.2.3",<% if (includeGulp) { %>
     "apache-server-configs": "^2.7.1",
@@ -14,7 +16,8 @@
     "gulp-cssmin": "^0.1.6",
     "gulp-flatten": "^0.0.2",
     "gulp-if": "^1.2.1",
-    "gulp-imagemin": "^1.0.0",
+    "gulp-imagemin": "^1.0.0",<% if (includeJade) { %>
+    "gulp-jade": "^1.0.0",<% } %>
     "gulp-jshint": "^1.6.3",
     "gulp-load-plugins": "^0.5.3",
     "gulp-minify-html": "^0.1.4",
@@ -33,12 +36,14 @@
     "opn": "^1.0.0",
     "psi": "^1.0.4",
     "require-dir": "^0.1.0",
-    "run-sequence": "^0.3.6"<% } else { %>
+    "run-sequence": "^0.3.6"<% } else { %><% if (includeJade) { %>
+    "coffee-script": "*",<% } %>
     "connect-livereload": "^0.5.2",
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "^2.0.0",
     "grunt-browser-sync": "^1.9.1",
-    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-clean": "^0.6.0",<% if (includeJade) { %>
+    "grunt-contrib-coffee": "^0.10.1",<% } %>
     "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-copy": "^0.7.0",
     "grunt-contrib-cssmin": "^0.10.0",
@@ -54,8 +59,7 @@
     "grunt-rev": "^0.1.0",<% if (includeSass && includeLibSass) { %>
     "grunt-sass": "^0.17.0",<% } %>
     "grunt-usemin": "^3.0.0",
-    "grunt-vulcanize": "^0.6.1",<% if (includeJade) { %>
-    "jade": "^1.9.2",<% } %>
+    "grunt-vulcanize": "^0.6.1",
     "jshint-stylish": "^1.0.0",
     "load-grunt-tasks": "^2.0.0",
     "serve-static": "^1.7.1",
