@@ -114,6 +114,15 @@ module.exports = function (grunt) {
           dest: '.tmp',
           ext: '.html'
         }]
+      },
+      test: {
+        files: [{
+            expand:true,
+            cwd: '<%%= yeoman.app %>',
+            src: ['*.jade', 'elements/{,*/}*.jade'],
+            dest: '<%%= yeoman.app %>',
+            ext: '.html'
+        }]
       }
     },<% } %>
     autoprefixer: {
@@ -173,7 +182,9 @@ module.exports = function (grunt) {
     },
     clean: {
       dist: ['.tmp', '<%%= yeoman.dist %>/*'],
-      server: '.tmp'
+      server: '.tmp'<% if (includeJade) {%>,
+        test: ['<%%= yeoman.app %>/*.html', '<%%= yeoman.app %>/**/*.html'],
+        jade: ['<%%= yeoman.dist %>/*.jade', '<%%= yeoman.dist %>/**/*.jade']<% } %>
     },
     jshint: {
       options: {
@@ -349,14 +360,15 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('test:local', ['wct-test:local']);
-  grunt.registerTask('test:remote', ['wct-test:remote']);
+  grunt.registerTask('test:local', [<% if (includeJade) { %>'jade:test',<% }%>'wct-test:local'<% if (includeJade) { %>,'clean:test'<% }%>]);
+  grunt.registerTask('test:remote', [<% if (includeJade) { %>'jade:test',<% }%>'wct-test:remote'<% if (includeJade) { %>,'clean:test'<% }%>]);
 
   grunt.registerTask('build', [
     'clean:dist',<% if (includeJade) { %>
     'jade',<% } %><% if (includeSass) { %>
     'sass',<% } %>
-    'copy',
+    'copy',<% if (includeJade) { %>
+    'clean:jade',<% } %>
     'useminPrepare',
     'imagemin',
     'concat',

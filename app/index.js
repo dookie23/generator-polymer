@@ -41,10 +41,13 @@ module.exports = yeoman.generators.Base.extend({
             name: 'includeSass',
             message: 'Would you like to use SASS/SCSS for element styles?',
             type: 'confirm'
-        }, {
+        },{
+            when: function(response) {
+                return response.includeGulp == 'Grunt';
+            },
             name: 'includeJade',
-            message: 'Would you like to use Jade?',
-            type: 'confirm'
+                message: 'Would you like to use Jade?',
+                type: 'confirm'
         }];
 
         this.prompt(prompts, function(answers) {
@@ -97,25 +100,25 @@ module.exports = yeoman.generators.Base.extend({
         this.copy('app/htaccess', 'app/.htaccess');
 
         if (this.includeJade) {
-          this.copy('app/elements.jade', 'app/elements/elements.jade');
-          this.copy('app/yo-list.jade', 'app/elements/yo-list/yo-list.jade');
-          this.copy('app/yo-greeting.jade', 'app/elements/yo-greeting/yo-greeting.jade');
-          this.copy('app/index.jade', 'app/index.jade');
+            this.copy('app/elements.jade', 'app/elements/elements.jade');
+            this.copy('app/yo-list.jade', 'app/elements/yo-list/yo-list.jade');
+            this.copy('app/yo-greeting.jade', 'app/elements/yo-greeting/yo-greeting.jade');
+            this.copy('app/index.jade', 'app/index.jade');
         } else {
-          this.copy('app/elements.html', 'app/elements/elements.html');
-          this.copy('app/yo-list.html', 'app/elements/yo-list/yo-list.html');
-          this.copy('app/yo-greeting.html', 'app/elements/yo-greeting/yo-greeting.html');
-          this.copy('app/index.html', 'app/index.html');
+            this.copy('app/elements.html', 'app/elements/elements.html');
+            this.copy('app/yo-list.html', 'app/elements/yo-list/yo-list.html');
+            this.copy('app/yo-greeting.html', 'app/elements/yo-greeting/yo-greeting.html');
+            this.copy('app/index.html', 'app/index.html');
         }
-        
+
         this.copy('app/yo-list.css',
             this.includeSass ? 'app/elements/yo-list/yo-list.scss' :
             'app/elements/yo-list/yo-list.css');
-        
+
         this.copy('app/yo-greeting.css',
             this.includeSass ? 'app/elements/yo-greeting/yo-greeting.scss' :
             'app/elements/yo-greeting/yo-greeting.css');
-        
+
         this.directory('test', 'app/test');
     },
     install: function() {

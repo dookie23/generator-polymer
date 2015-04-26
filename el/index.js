@@ -77,13 +77,14 @@ module.exports = yeoman.generators.Base.extend({
         // Wire up the dependency in elements.html
         if (this.includeImport) {
             var includeJade = this.config.get('includeJade');
+            var file = undefined;
             if (includeJade) {
-                var file = this.readFileAsString('app/elements/elements.jade');
+                file = this.readFileAsString('app/elements/elements.jade');
                 el = el.replace('\\', '/');
-                file += "link(rel='import', href='" + el + ".html')\n";
+                file += 'link(rel=\'import\', href=\'' + el + '.html\')\n';
                 this.writeFileFromString(file, 'app/elements/elements.jade');
             } else {
-                var file = this.readFileAsString('app/elements/elements.html');
+                file = this.readFileAsString('app/elements/elements.html');
                 el = el.replace('\\', '/');
                 file += '<link rel="import" href="' + el + '.html">\n';
                 this.writeFileFromString(file, 'app/elements/elements.html');
